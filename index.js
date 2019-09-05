@@ -5,6 +5,10 @@ const path = require('path');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 
+const coursesController = require('./controllers/courses');
+const eventsController = require('./controllers/events');
+const usersController = require('./controllers/users');
+
 const config = require('./config/config');
 
 const app = express();
@@ -40,7 +44,12 @@ app.use(passport.session())
 // always send the index.html file
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
-})
+});
+
+// use controllers
+app.use('/courses', coursesController)
+app.use('/events', eventsController)
+app.use('/users', usersController)
 
 // listen
 const PORT = process.env.PORT || 3000;

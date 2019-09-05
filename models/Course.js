@@ -6,4 +6,6 @@ const courseSchema = new Schema({
     link: String
 })
 
-module.exports = Course = mongoose.model('Course', courseSchema);
+let Course = mongoose.model('Course', courseSchema);
+
+module.exports = Course;
