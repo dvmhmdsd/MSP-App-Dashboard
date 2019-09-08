@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
   Course.find({}).then((response, err) => {
     if (err) return err;
 
-    res.json(response);
+    res.send(response);
   });
 });
 
