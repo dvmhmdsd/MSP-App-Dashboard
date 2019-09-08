@@ -38,4 +38,17 @@ router.post("/add", (req, res) => {
   });
 });
 
+router.put("/edit/:id", (req, res) => {
+  Event.findByIdAndUpdate(req.params.id, req.body).then(() => {
+    res.sendStatus(200); // every thing is OK
+  });
+});
+
+// delete a course
+router.delete("/delete/:id", (req, res) => {
+  Event.findByIdAndDelete(req.params.id).then(() => {
+    res.sendStatus(204); // every thing is OK but a record is deleted
+  });
+});
+
 module.exports = router;
