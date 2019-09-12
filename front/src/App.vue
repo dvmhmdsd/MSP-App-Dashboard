@@ -21,6 +21,7 @@
           class="white--text"
           v-for="item in menuItems"
           :key="item.title"
+          exact
           :to="item.link"
         >
           <v-icon left> {{ item.icon }} </v-icon> {{ item.title }}
@@ -49,11 +50,10 @@
       </v-list>
     </v-navigation-drawer>
   </v-app>
+
 </template>
 
 <script>
-
-
 export default {
   name: 'App',
   components: {
@@ -61,12 +61,8 @@ export default {
   data: () => ({
     sideNav: false,
     menuItems: [
-      { title: "courses",  link: "/courses", icon: "" },
-      { title: "events",  link: "/events", icon: "mdi-account-multiple" },
-      { title: "add event",  link: "/events/new", icon: "mdi-map-marker" },
-      { title: "add course",  link: "/courses/new", icon: "mdi-pencil" },
-      { title: "sign in",  link: "/signin", icon: "mdi-lock-open" },
-      { title: "sign up",  link: "/signup", icon: "mdi-face" },
+      { title: "courses",  link: "/courses", icon: "mdi-book-open-page-variant" },
+      { title: "events",  link: "/events", icon: "mdi-account-multiple" }
     ]
   }),
 };
