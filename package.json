@@ -6,7 +6,7 @@
   "repository": "https://github.com/mohamedsaad4/MSP-App-Dashboard",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "Mohamed Saad",
