@@ -10,7 +10,7 @@ const eventSchema = new Schema({
     type: String,
     required: true
   },
-  ticket: {
+  price: {
     type: String,
     required: true
   },
@@ -29,9 +29,9 @@ const eventSchema = new Schema({
       speakerJob: String
     }
   ],
-  image: String,
+  imgURL: String,
   date: String,
   time: String
 });
 
-module.exports = Course = mongoose.model("Event", eventSchema);
+module.exports = Event = mongoose.model("Event", eventSchema);

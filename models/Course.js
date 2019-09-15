@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const courseSchema = new Schema({
     name: String,
-    link: String
+    courseLink: String
 })
 
 let Course = mongoose.model('Course', courseSchema);

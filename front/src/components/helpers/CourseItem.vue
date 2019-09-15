@@ -19,7 +19,8 @@
         <v-card-title class="headline">Edit</v-card-title>
 
         <v-card-text class="text-center">
-          <v-form v-model="valid">
+          <v-btn text loading v-if="loading"></v-btn>
+          <v-form v-model="valid" v-if="!loading">
             <v-text-field
               :rules="nameRules"
               label="Name of the course"
@@ -42,7 +43,7 @@
 
           <v-btn color="blue darken-1" text @click="handleSubmit" :disabled="!valid">edit course</v-btn>
 
-          <v-btn color="blue darken-1" text @click="dialog = false">cansel</v-btn>
+          <v-btn color="blue darken-1" text @click="dialog = false">cancel</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -55,6 +56,7 @@ export default {
   data() {
     return {
       dialog: false,
+      loading: false,
       valid: false,
       form: {
         name: this.courseName,
@@ -73,12 +75,15 @@ export default {
       this.$emit("remove", this.id);
     },
     handleSubmit() {
-      this.update.updatedName = this.form.name;
-      this.update.updatedLink = this.form.courseLink;
-      
-      this.$emit("edit", [this.form, this.id]);
+      this.loading = true;
+      this.$http
+        .put(`api/courses/edit/${this.id}`, this.form)
+        .then(result => {
+          this.update.updatedName = this.form.name;
+          this.update.updatedLink = this.form.courseLink;
 
-      this.dialog = false;
+          this.dialog = false;
+        });
     }
   }
 };

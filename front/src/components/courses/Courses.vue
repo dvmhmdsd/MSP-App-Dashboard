@@ -1,16 +1,27 @@
 <template>
   <v-container>
-    <v-row>
+    <div class="text-center" v-show="loading">
+      <v-btn fab top loading></v-btn>
+    </div>
+    <v-row v-if="!loading && courses.length > 0">
       <v-col cols="12" xs="12" sm="6" v-for="course in courses" :key="course.id">
         <CourseItem
           @remove="removeCourse($event)"
-          @edit="editCourse($event)"
-          :id="course.id"
+          :id="course._id"
           :courseName="course.name"
-          :link="course.link"
+          :link="course.courseLink"
         ></CourseItem>
       </v-col>
     </v-row>
+    <v-row v-else-if="!loading">
+      <v-col cols="12" xs="12" class="text-center">
+        <p>No courses Added yet</p>
+      </v-col>
+    </v-row>
+
+    <v-btn to="/courses/new" title="Add a new course" fixed dark fab bottom right color="blue">
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
   </v-container>
 </template>
 
@@ -22,41 +33,29 @@ export default {
   },
   data() {
     return {
-      courses: [
-        {
-          id: 1,
-          name: "Course 1",
-          link: "http://javascript.info"
-        },
-        {
-          id: 2,
-          name: "Course 2",
-          link: "http://javascript1.info"
-        },
-        {
-          id: 3,
-          name: "Course 3",
-          link: "http://javascript2.info"
-        },
-        {
-          id: 4,
-          name: "Course 4",
-          link: "http://javascript3.info"
-        }
-      ],
+      courses: [],
+      loading: false
     };
   },
   methods: {
     removeCourse(id) {
+      this.loading = true;
       this.courses.forEach((course, i) => {
-        if (course.id === id) {
-          this.courses.splice(i, 1)
+        if (course._id === id) {
+          this.$http.delete(`api/courses/delete/${id}`).then(result => {
+            this.courses.splice(i, 1);
+            this.loading = false;
+          });
         }
       });
-    },
-    editCourse(data) {
-      // send data to server
     }
+  },
+  created() {
+    this.loading = true;
+    this.$http.get("api/courses/").then(result => {
+      this.courses = result.data;
+      this.loading = false;
+    });
   }
 };
 </script>

@@ -16,20 +16,24 @@ router.post("/add", (req, res) => {
   let {
     title,
     description,
-    ticket,
+    price,
     location,
     formLink,
-    image,
+    imgURL,
+    date,
+    time,
     topics
   } = req.body;
 
   let event = new Event({
     title,
     description,
-    ticket,
+    price,
     location,
     formLink,
-    image,
+    imgURL,
+    date,
+    time,
     topics
   });
 

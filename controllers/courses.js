@@ -16,12 +16,12 @@ router.get("/", (req, res) => {
 // add a course
 router.post("/add", (req, res) => {
   // get the data from the body
-  let { name, link } = req.body;
+  let { name, courseLink } = req.body;
 
   // create a new instance of course model
   let course = new Course({
     name,
-    link
+    courseLink
   });
 
   // save this instance into db

@@ -26,6 +26,7 @@
               color="blue"
               class="mt-5 white--text"
               :disabled="!valid"
+              :loading="loading"
             >Add Course</v-btn>
           </v-form>
         </v-col>
@@ -39,6 +40,7 @@ export default {
   data() {
     return {
       valid: false,
+      loading: false,
       name: "",
       link: "",
       nameRules: [v => !!v || "Name of the course is required"],
@@ -47,7 +49,18 @@ export default {
   },
   methods: {
     handleSubmit() {
+      this.loading = true;
       // send data to the server
+      this.$http
+        .post("/api/courses/add", {
+          name: this.name,
+          courseLink: this.link
+        })
+        .then(result => {
+          this.$router.push("/courses");
+
+          this.loading = false;
+        });
     }
   }
 };
