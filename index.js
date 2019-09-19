@@ -5,6 +5,7 @@ const path = require("path");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 
+const projectsController = require("./controllers/projects");
 const coursesController = require("./controllers/courses");
 const eventsController = require("./controllers/events");
 const usersController = require("./controllers/users");
@@ -40,6 +41,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // use controllers
+app.use("/api/projects", projectsController);
 app.use("/api/courses", coursesController);
 app.use("/api/events", eventsController);
 app.use("/api/users", usersController);

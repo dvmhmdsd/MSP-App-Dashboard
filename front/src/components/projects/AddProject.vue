@@ -3,46 +3,30 @@
     <v-container>
       <v-row>
         <v-col cols="12" xs="12" sm="8" offset-sm="2">
-          <h2 class="headline">Add an Event</h2>
+          <h2 class="headline">Add a Project</h2>
           <v-form v-model="valid" @submit.prevent="handleSubmit">
             <v-text-field
               :rules="rules"
-              label="Title of the event"
-              prepend-inner-icon="mdi-calendar-edit"
+              label="Title of the project"
+              prepend-inner-icon="mdi-calender-edit"
               v-model="form.title"
               required
             ></v-text-field>
             <v-textarea
               :rules="rules"
               no-resize
-              label="Description of the event"
-              prepend-inner-icon="mdi-calendar-text"
+              label="Description of the project"
+              prepend-inner-icon="mdi-calender-text"
               v-model="form.description"
               required
             ></v-textarea>
             <v-text-field
               :rules="rules"
-              label="Location link"
-              prepend-inner-icon="mdi-map-marker"
-              v-model="form.location"
-              required
-            ></v-text-field>
-            <v-text-field
-              :rules="rules"
-              label="Form link"
+              label="Project link"
               prepend-inner-icon="mdi-link-variant"
-              v-model="form.formLink"
+              v-model="form.projectLink"
               required
             ></v-text-field>
-            <v-text-field
-              :rules="rules"
-              label="Price of the ticket"
-              prepend-inner-icon="mdi-cash"
-              v-model="form.price"
-              suffix="L.E"
-              required
-            ></v-text-field>
-
             <v-file-input
               @change="onFilePicked"
               label="Upload"
@@ -55,38 +39,31 @@
             <div>
               <img width="200" height="200" :src="form.imgURL" alt />
             </div>
-            <v-date-picker v-model="form.date" full-width class="mb-8"></v-date-picker>
-
-            <v-time-picker v-model="form.time" full-width></v-time-picker>
 
             <v-card class="mt-6 pt-2 pb-8 px-8">
               <v-card-title>
-                <div class="headline">Topics</div>
+                <div class="headline">Stuff</div>
               </v-card-title>
 
               <v-card-text>
-                <v-text-field label="Title" v-model="topic.title"></v-text-field>
-
-                <v-text-field label="Speaker Name" v-model="topic.speakerName"></v-text-field>
-
-                <v-text-field label="Speaker Job" v-model="topic.speakerJob"></v-text-field>
+                <v-text-field v-model="stuffMember" @keypress.ctrl.enter="addMember" title="press ctrl + enter to add a member"></v-text-field>
               </v-card-text>
 
-              <div class="topics-preview">
-                <div class="topics-preview-item" v-for="topic in form.topics" :key="topic.title">
-                  <p class="blue white--text px-2 py-2 text-center">{{ topic.title }}</p>
+              <div class="stuff-preview">
+                <div class="stuff-preview-item" v-for="member in form.stuff" :key="member">
+                  <p class="blue white--text px-2 py-2 text-center">{{ member }}</p>
                 </div>
               </div>
 
               <v-card-actions>
-                <v-btn icon fab title="Add topic" @click="addTopic">
+                <v-btn icon fab title="Add member" @click="addMember">
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
                 <v-btn
                   icon
                   fab
-                  title="Please be sure about every thing in the topics and make sure there's no typos because you won't be able to edit it later"
+                  title="Please be sure about every thing in the stuff and make sure there's no typos because you won't be able to edit it later"
                   @click.stop="hintDialog = true"
                   max-width="290"
                 >
@@ -100,7 +77,7 @@
                 <v-card-text
                   class="text-center"
                   style="font-weight: bold"
-                >Please be sure about every thing in the topics and make sure there's no typos because you won't be able to edit it later</v-card-text>
+                >Please be sure about every thing in the stuff and make sure there's no typos because you won't be able to edit it later</v-card-text>
 
                 <v-card-actions>
                   <div class="flex-grow-1"></div>
@@ -118,7 +95,7 @@
               class="mt-5 white--text"
               :disabled="!valid"
               :loading="loading"
-            >Add Event</v-btn>
+            >Add Project</v-btn>
           </v-form>
         </v-col>
       </v-row>
@@ -133,21 +110,13 @@ export default {
       valid: false,
       loading: false,
       hintDialog: false,
+      stuffMember: "",
       form: {
         title: "",
         description: "",
-        location: "",
-        price: "",
-        formLink: "",
+        projectLink: "",
         imgURL: "",
-        date: new Date().toISOString().substr(0, 10),
-        time: new Date().toTimeString().substr(0, 5),
-        topics: []
-      },
-      topic: {
-        title: "",
-        speakerName: "",
-        speakerJob: ""
+        stuff: []
       },
       rules: [v => !!v || "This field is required"]
     };
@@ -157,19 +126,15 @@ export default {
       this.loading = true;
       // send data to the server
       this.$http
-        .post("/api/events/add", {
+        .post("/api/projects/add", {
           title: this.form.title,
           description: this.form.description,
-          location: this.form.location,
-          price: this.form.price,
-          formLink: this.form.formLink,
+          projectLink: this.form.projectLink,
           imgURL: this.form.imgURL,
-          date: this.form.date,
-          time: this.form.time,
-          topics: this.form.topics
+          stuff: this.form.stuff
         })
         .then(result => {
-          this.$router.push("/events");
+          this.$router.push("/projects");
           this.loading = false;
         });
     },
@@ -186,22 +151,21 @@ export default {
 
       fileReader.readAsDataURL(event);
     },
-    addTopic() {
-      let { title, speakerName, speakerJob } = this.topic;
-
-      this.form.topics.push({ title, speakerName, speakerJob });
+    addMember() {
+      this.form.stuff.push(this.stuffMember);
+      this.stuffMember = ""
     }
   }
 };
 </script>
 
 <style scoped>
-.topics-preview-item {
+.stuff-preview-item {
   display: inline-block;
   margin: 3px;
 }
 
-.topics-preview-item p {
+.stuff-preview-item p {
   border-radius: 20px;
 }
 </style>

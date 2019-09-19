@@ -6,9 +6,8 @@ import AddCourse from './components/courses/AddCourse';
 import Events from './components/events/Events';
 import AddEvent from './components/events/AddEvent';
 
-import Signin from './components/users/signin';
-import Signup from './components/users/signup';
-
+import Projects from './components/projects/Projects';
+import AddProject from './components/projects/AddProject';
 
 export default [
     {
@@ -32,11 +31,11 @@ export default [
         component: AddEvent
     },
     {
-        path: '/signin',
-        component: Signin
+        path: '/projects',
+        component: Projects
     },
     {
-        path: '/signup',
-        component: Signup
-    }
+        path: '/projects/new',
+        component: AddProject
+    },
 ]

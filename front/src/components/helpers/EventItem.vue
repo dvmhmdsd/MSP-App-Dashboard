@@ -121,7 +121,7 @@
         <v-card-actions>
           <div class="flex-grow-1"></div>
 
-          <v-btn color="blue darken-1" text @click="handleSubmit" :disabled="!valid">edit course</v-btn>
+          <v-btn color="blue darken-1" text @click="handleSubmit" :disabled="!valid">edit event</v-btn>
 
           <v-btn color="blue darken-1" text @click="dialog = false">cancel</v-btn>
         </v-card-actions>
@@ -174,9 +174,6 @@ export default {
   methods: {
     removeItem() {
       this.$emit("remove", this.id);
-    },
-    onfilePick() {
-      this.$refs.fileInput.click();
     },
     onFilePicked(event) {
       if (!event) {

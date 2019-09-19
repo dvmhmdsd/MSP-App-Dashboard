@@ -4,7 +4,7 @@
       <v-btn fab top loading></v-btn>
     </div>
     <v-row v-if="!loading && events.length > 0">
-      <v-col cols="12" xs="12" lg="6" v-for="event in events" :key="event.id">
+      <v-col cols="12" xs="12" lg="6" v-for="event in events" :key="event._id">
         <EventItem
           @remove="removeEvent($event)"
           :id="event._id"
