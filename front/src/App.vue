@@ -62,6 +62,7 @@ export default {
     sideNav: false,
     menuItems: [
       { title: "courses",  link: "/courses", icon: "mdi-book-open-page-variant" },
+      { title: "projects",  link: "/projects", icon: "mdi-briefcase" },
       { title: "events",  link: "/events", icon: "mdi-account-multiple" }
     ]
   }),

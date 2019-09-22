@@ -45,12 +45,10 @@ export default {
       this.loading = true;
       this.projects.forEach((project, i) => {
         if (project._id === id) {
-          this.$http
-            .delete(`/api/projects/delete/${id}`)
-            .then(result => {
-              this.projects.splice(i, 1);
-              this.loading = false;
-            });
+          this.$http.delete(`/api/projects/delete/${id}`).then(result => {
+            this.projects.splice(i, 1);
+            this.loading = false;
+          });
         }
       });
     }

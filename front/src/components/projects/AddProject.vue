@@ -46,7 +46,11 @@
               </v-card-title>
 
               <v-card-text>
-                <v-text-field v-model="stuffMember" @keypress.ctrl.enter="addMember" title="press ctrl + enter to add a member"></v-text-field>
+                <v-text-field
+                  v-model="stuffMember"
+                  @keypress.ctrl.enter="addMember"
+                ></v-text-field>
+                <small class="d-md-block">press ctrl + enter to add member</small>
               </v-card-text>
 
               <div class="stuff-preview">
@@ -153,7 +157,7 @@ export default {
     },
     addMember() {
       this.form.stuff.push(this.stuffMember);
-      this.stuffMember = ""
+      this.stuffMember = "";
     }
   }
 };

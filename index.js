@@ -49,7 +49,7 @@ app.use("/api/users", usersController);
 if (process.env.NODE_ENV === "production") {
   // assets
   app.use(express.static(path.join(__dirname, "public")));
-
+  
   // always send the index.html file to handle SPA
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"));

@@ -100,9 +100,6 @@ export default {
     removeItem() {
       this.$emit("remove", this.id);
     },
-    onfilePick() {
-      this.$refs.fileInput.click();
-    },
     onFilePicked(event) {
       if (!event) {
         return;
@@ -128,6 +125,8 @@ export default {
           this.update.projectLinkUpdated = this.form.projectLink;
 
           this.dialog = false;
+
+          this.loading = false;
         });
     }
   }
