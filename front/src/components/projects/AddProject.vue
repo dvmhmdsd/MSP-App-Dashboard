@@ -46,16 +46,25 @@
               </v-card-title>
 
               <v-card-text>
-                <v-text-field
-                  v-model="stuffMember"
-                  @keypress.ctrl.enter="addMember"
-                ></v-text-field>
-                <small class="d-md-block">press ctrl + enter to add member</small>
+                <v-text-field v-model="member.name" @keypress.ctrl.enter="addMember"></v-text-field>
+                <small class="d-none d-md-flex">press ctrl + enter to add member</small>
+                <v-file-input
+                  @change="onMemberImgPicked"
+                  label="Upload"
+                  type="file"
+                  ref="fileInput"
+                  accept="image/*"
+                  rounded
+                  flat
+                ></v-file-input>
               </v-card-text>
 
               <div class="stuff-preview">
-                <div class="stuff-preview-item" v-for="member in form.stuff" :key="member">
-                  <p class="blue white--text px-2 py-2 text-center">{{ member }}</p>
+                <div class="stuff-preview-item" v-for="member in form.stuff" :key="member.name">
+                  <p class="blue white--text px-2 py-2 text-center">{{ member.name }}</p>
+                  <div>
+                    <img style="border-radius: 50%" width="50" height="50" :src="member.memberIMG" alt />
+                  </div>
                 </div>
               </div>
 
@@ -114,13 +123,16 @@ export default {
       valid: false,
       loading: false,
       hintDialog: false,
-      stuffMember: "",
       form: {
         title: "",
         description: "",
         projectLink: "",
         imgURL: "",
         stuff: []
+      },
+      member: {
+        name: "",
+        memberIMG: ""
       },
       rules: [v => !!v || "This field is required"]
     };
@@ -155,9 +167,38 @@ export default {
 
       fileReader.readAsDataURL(event);
     },
+    onFilePicked(event) {
+      if (!event) {
+        return;
+      }
+
+      const fileReader = new FileReader();
+
+      fileReader.addEventListener("load", e => {
+        this.form.imgURL = e.target.result;
+      });
+
+      fileReader.readAsDataURL(event);
+    },
+    onMemberImgPicked(event) {
+      if (!event) {
+        return;
+      }
+
+      const fileReader = new FileReader();
+
+      fileReader.addEventListener("load", e => {
+        this.member.memberIMG = e.target.result;
+      });
+
+      fileReader.readAsDataURL(event);
+    },
     addMember() {
-      this.form.stuff.push(this.stuffMember);
-      this.stuffMember = "";
+      let { name, memberIMG } = this.member;
+      if (this.member.name.length > 2) {
+        this.form.stuff.push({ name, memberIMG });
+        this.stuffMember = "";
+      }
     }
   }
 };

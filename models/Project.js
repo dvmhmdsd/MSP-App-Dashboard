@@ -6,7 +6,10 @@ const projectSchema = new Schema({
     description: String,
     imgURL: String,
     projectLink: String,
-    stuff: [String]
+    stuff: [{
+        name: String,
+        memberIMG: String
+    }]
 });
 
 module.exports = Project = mongoose.model("Project", projectSchema);

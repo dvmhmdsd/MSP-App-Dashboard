@@ -1,19 +1,39 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title></v-card-title>
+      <v-row>
+        <v-col class="py-0 d-flex justify-center align-center">
+          <img
+            v-if="update.imgURLUpdated"
+            height="100%"
+            style="max-width: 100%"
+            :src="update.imgURLUpdated"
+            :alt="'image of ' + update.titleUpdated"
+          />
+          <p v-else>No image provided</p>
+        </v-col>
+        <v-col>
+          <v-card-title>
+            <h2 class="headline text-uppercase">
+              <v-btn text :href="update.projectLinkUpdated" x-large>
+                {{ update.titleUpdated }}
+              </v-btn>
+            </h2>
+          </v-card-title>
 
-      <v-card-text></v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn icon large @click.stop="dialog = true">
-          <v-icon>mdi-lead-pencil</v-icon>
-        </v-btn>
+          <v-card-text></v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn icon large @click.stop="dialog = true">
+              <v-icon>mdi-lead-pencil</v-icon>
+            </v-btn>
 
-        <v-btn icon large @click="removeItem">
-          <v-icon>mdi-trash-can</v-icon>
-        </v-btn>
-      </v-card-actions>
+            <v-btn icon large @click="removeItem">
+              <v-icon>mdi-trash-can</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-col>
+      </v-row>
     </v-card>
 
     <v-dialog v-model="dialog">
@@ -57,7 +77,6 @@
             <div>
               <img width="200" height="200" :src="form.imgURL" alt />
             </div>
-
           </v-form>
         </v-card-text>
 
