@@ -130,7 +130,7 @@ export default {
       valid: false,
       loading: false,
       hintDialog: false,
-      items: ["IT", "Web", "Mobile", "Media", "Autonomous"],
+      items: ["IT", "WEB", "MOBILE", "MEDIA", "AUTONOMOUS"],
       form: {
         title: "",
         description: "",

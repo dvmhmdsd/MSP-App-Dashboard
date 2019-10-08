@@ -3,7 +3,6 @@
     <v-card>
       <v-row>
         <v-col class="py-0 d-flex justify-center align-center">
-          <p> url: {{project.imgURL}} </p>
           <img
             v-if="update.imgURLUpdated"
             height="100%"
