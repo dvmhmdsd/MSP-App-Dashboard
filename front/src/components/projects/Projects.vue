@@ -57,7 +57,7 @@ export default {
       })
       .catch(err => {
         this.loading = false;
-        this.msg = `Oops! ${err.response.statusText} ${err.response.status}`;
+        this.msg = "Oops! an error occured";
       });
   }
 };

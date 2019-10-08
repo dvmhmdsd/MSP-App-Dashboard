@@ -12,7 +12,7 @@
         </v-col>
         <v-col>
           <v-card-title>
-            <h2 class="headline text-uppercase">
+            <h2 class="headline text-uppercase event-head">
               <v-btn text :href="update.formLinkUpdated" x-large>
                 <v-icon left>mdi-calendar-check</v-icon>
                 {{ update.titleUpdated }}
@@ -207,3 +207,9 @@ export default {
   }
 };
 </script>
+
+<style>
+  .event-head {
+    
+  }
+</style>
