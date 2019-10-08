@@ -207,9 +207,3 @@ export default {
   }
 };
 </script>
-
-<style>
-  .event-head {
-    
-  }
-</style>
