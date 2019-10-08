@@ -46,7 +46,6 @@
               solo
               v-model="form.category"
             ></v-select>
-            
 
             <v-card class="mt-6 pt-2 pb-8 px-8">
               <v-card-title>
