@@ -52,10 +52,16 @@ export default {
   },
   created() {
     this.loading = true;
-    this.$http.get("api/courses/").then(result => {
-      this.courses = result.data;
-      this.loading = false;
-    });
+    this.$http
+      .get("api/courses/")
+      .then(result => {
+        this.courses = result.data;
+        this.loading = false;
+      })
+      .catch(err => {
+        this.loading = false;
+        this.msg = `Oops! ${err.response.statusText} ${err.response.status}`;
+      });
   }
 };
 </script>

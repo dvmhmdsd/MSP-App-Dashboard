@@ -9,7 +9,8 @@ const projectSchema = new Schema({
     stuff: [{
         name: String,
         memberIMG: String
-    }]
+    }],
+    category: String
 });
 
 module.exports = Project = mongoose.model("Project", projectSchema);

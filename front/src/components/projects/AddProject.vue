@@ -40,6 +40,13 @@
               <img width="200" height="200" :src="form.imgURL" alt />
             </div>
 
+            <v-select
+              :items="items"
+              label="Category"
+              solo
+              v-model="form.category"
+            ></v-select>
+
             <v-card class="mt-6 pt-2 pb-8 px-8">
               <v-card-title>
                 <div class="headline">Stuff</div>
@@ -123,12 +130,14 @@ export default {
       valid: false,
       loading: false,
       hintDialog: false,
+      items: ["IT", "Web", "Mobile", "Media", "Autonomous"],
       form: {
         title: "",
         description: "",
         projectLink: "",
         imgURL: "",
-        stuff: []
+        stuff: [],
+        category: ""
       },
       member: {
         name: "",
@@ -147,25 +156,13 @@ export default {
           description: this.form.description,
           projectLink: this.form.projectLink,
           imgURL: this.form.imgURL,
-          stuff: this.form.stuff
+          stuff: this.form.stuff,
+          category: this.form.category
         })
         .then(result => {
           this.$router.push("/projects");
           this.loading = false;
         });
-    },
-    onFilePicked(event) {
-      if (!event) {
-        return;
-      }
-
-      const fileReader = new FileReader();
-
-      fileReader.addEventListener("load", e => {
-        this.form.imgURL = e.target.result;
-      });
-
-      fileReader.readAsDataURL(event);
     },
     onFilePicked(event) {
       if (!event) {

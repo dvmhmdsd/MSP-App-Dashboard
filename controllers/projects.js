@@ -12,15 +12,25 @@ router.get("/", (req, res) => {
   });
 });
 
+/* "Cat" for categories */
+router.get("/:cat", (req, res) => {
+  Project.find({ category: req.params.cat.toUpperCase() }).then((result, err) => {
+    if (err) return err;
+
+    res.send(result);
+  })
+})
+
 router.post("/add", (req, res) => {
-  let { title, description, imgUrl, projectLink, stuff } = req.body;
+  let { title, description, imgUrl, projectLink, stuff, category } = req.body;
 
   let project = new Project({
     title,
     description,
     imgUrl,
     projectLink,
-    stuff
+    stuff,
+    category
   });
 
   project.save().then(() => {

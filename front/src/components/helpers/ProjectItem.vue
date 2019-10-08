@@ -3,6 +3,7 @@
     <v-card>
       <v-row>
         <v-col class="py-0 d-flex justify-center align-center">
+          <p> url: {{project.imgURL}} </p>
           <img
             v-if="update.imgURLUpdated"
             height="100%"
@@ -94,30 +95,30 @@
 
 <script>
 export default {
-  props: ["title", "description", "projectLink", "imgURL"],
+  props: ["project"],
   data() {
     return {
       dialog: false,
       loading: false,
       valid: false,
       form: {
-        title: this.title,
-        description: this.description,
-        projectLink: this.projectLink,
-        imgURL: this.imgURL
+        title: this.project.title,
+        description: this.project.description,
+        projectLink: this.project.projectLink,
+        imgURL: this.project.imgURL
       },
       update: {
-        titleUpdated: this.title,
-        descriptionUpdated: this.description,
-        projectLinkUpdated: this.projectLink,
-        imgURLUpdated: this.imgURL
+        titleUpdated: this.project.title,
+        descriptionUpdated: this.project.description,
+        projectLinkUpdated: this.project.projectLink,
+        imgURLUpdated: this.project.imgURL
       },
       rules: [v => !!v || "This field is required"]
     };
   },
   methods: {
     removeItem() {
-      this.$emit("remove", this.id);
+      this.$emit("remove", this.project._id);
     },
     onFilePicked(event) {
       if (!event) {

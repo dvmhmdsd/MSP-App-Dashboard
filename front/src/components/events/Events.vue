@@ -50,22 +50,26 @@ export default {
       this.loading = true;
       this.events.forEach((event, i) => {
         if (event._id === id) {
-          this.$http
-            .delete(`/api/events/delete/${id}`)
-            .then(result => {
-              this.events.splice(i, 1);
-              this.loading = false;
-            });
+          this.$http.delete(`/api/events/delete/${id}`).then(result => {
+            this.events.splice(i, 1);
+            this.loading = false;
+          });
         }
       });
     }
   },
   created() {
     this.loading = true;
-    this.$http.get("/api/events/").then(result => {
-      this.events = result.data;
-      this.loading = false;
-    });
+    this.$http
+      .get("/api/events/")
+      .then(result => {
+        this.events = result.data;
+        this.loading = false;
+      })
+      .catch(err => {
+        this.loading = false;
+        this.msg = `Oops! ${err.response.statusText} ${err.response.status}`;
+      });
   }
 };
 </script>
