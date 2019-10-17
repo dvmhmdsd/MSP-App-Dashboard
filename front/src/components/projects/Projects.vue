@@ -54,6 +54,7 @@ export default {
         this.projects = result.data;
         this.loading = false;
         this.msg = "";
+        console.log(result.data)
       })
       .catch(err => {
         this.loading = false;
