@@ -22,12 +22,12 @@ router.get("/:cat", (req, res) => {
 })
 
 router.post("/add", (req, res) => {
-  let { title, description, imgUrl, projectLink, stuff, category } = req.body;
+  let { title, description, imgURL, projectLink, stuff, category } = req.body;
 
   let project = new Project({
     title,
     description,
-    imgUrl,
+    imgURL,
     projectLink,
     stuff,
     category

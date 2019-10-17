@@ -31,7 +31,6 @@
               @change="onFilePicked"
               label="Upload"
               type="file"
-              ref="fileInput"
               accept="image/*"
               rounded
               flat
@@ -151,14 +150,7 @@ export default {
       this.loading = true;
       // send data to the server
       this.$http
-        .post("/api/projects/add", {
-          title: this.form.title,
-          description: this.form.description,
-          projectLink: this.form.projectLink,
-          imgURL: this.form.imgURL,
-          stuff: this.form.stuff,
-          category: this.form.category
-        })
+        .post("/api/projects/add", this.form)
         .then(result => {
           this.$router.push("/projects");
           this.loading = false;
